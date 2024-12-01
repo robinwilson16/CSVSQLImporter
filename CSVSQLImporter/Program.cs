@@ -214,73 +214,154 @@ namespace CSVSQLImporter
 
                     if (fileRow.Count > 0)
                     {
+                        //If first row then add named columns and don't add a row
                         if (rowIndex == 0)
                         {
-                            //If first row then add named columns and don't add a row
                             foreach (string fieldHeaderValue in fileRow)
                             {
                                 string? fieldRowValue = null;
-                                string? fieldType = "";
-                                string[] fieldType2 = new string[2];
+                                string? fieldTypeToUse = "";
+                                List<string> fieldTypes = new List<string>();
 
-                                //Check values from row 2 and 3 as row 1 is titles so all will be strings
-                                for (int i = 0; i < 2; i++)
+                                //Check all cell types for this column excluding header row to pick best type
+                                for (int i = 0; i < csvData.Count - 1; i++)
                                 {
                                     fieldRowValue = csvData[i + 1][colIndex];
-
+                                    string fieldType = "System.String";
                                     /*
                                     switch (Type.GetTypeCode(fieldRowValue.GetType()))
                                     {
-                                        case TypeCode.Boolean: fieldType2[i] = "System.Boolean"; break;
-                                        case TypeCode.String: fieldType2[i] = "System.String"; break;
-                                        case TypeCode.Decimal: fieldType2[i] = "System.Double"; break;
-                                        case TypeCode.Int16: fieldType2[i] = "System.Int16"; break;
-                                        case TypeCode.Int32: fieldType2[i] = "System.Int32"; break;
-                                        case TypeCode.Int64: fieldType2[i] = "System.Int64"; break;
-                                        case TypeCode.DateTime: fieldType2[i] = "System.DateTime"; break;
-                                        default: fieldType2[i] = "System.String"; break;
+                                        case TypeCode.Boolean: fieldTypes[i] = "System.Boolean"; break;
+                                        case TypeCode.String: fieldTypes[i] = "System.String"; break;
+                                        case TypeCode.Decimal: fieldTypes[i] = "System.Double"; break;
+                                        case TypeCode.Int16: fieldTypes[i] = "System.Int16"; break;
+                                        case TypeCode.Int32: fieldTypes[i] = "System.Int32"; break;
+                                        case TypeCode.Int64: fieldTypes[i] = "System.Int64"; break;
+                                        case TypeCode.DateTime: fieldTypes[i] = "System.DateTime"; break;
+                                        default: fieldTypes[i] = "System.String"; break;
                                     }
                                     */
-                                    if (bool.TryParse(fieldRowValue, out bool fieldRowValueBoolean))
+                                    //Skip Null/blank fields as cannot determine a type from these
+                                    //If all rows are null in this column then will default to string
+                                    if (fieldRowValue.Length > 0)
                                     {
-                                        fieldType2[i] = "System.Boolean";
+                                        if (bool.TryParse(fieldRowValue, out bool fieldRowValueBoolean))
+                                        {
+                                            fieldType = "System.Boolean";
+                                        }
+                                        else if (int.TryParse(fieldRowValue, out int fieldRowValueInt))
+                                        {
+                                            fieldType = "System.Int32";
+                                        }
+                                        else if (decimal.TryParse(fieldRowValue, out decimal fieldRowValueDecimal))
+                                        {
+                                            fieldType = "System.Double";
+                                        }
+                                        else if (DateTime.TryParse(fieldRowValue, out DateTime fieldRowValueDateTime))
+                                        {
+                                            fieldType = "System.DateTime";
+                                        }
+                                        else
+                                        {
+                                            fieldType = "System.String";
+                                        }
+
+                                        fieldTypes.Add(fieldType);
                                     }
-                                    else if (int.TryParse(fieldRowValue, out int fieldRowValueInt))
-                                    {
-                                        fieldType2[i] = "System.Int32";
-                                    }
-                                    else if (decimal.TryParse(fieldRowValue, out decimal fieldRowValueDecimal))
-                                    {
-                                        fieldType2[i] = "System.Double";
-                                    }
-                                    else if (DateTime.TryParse(fieldRowValue, out DateTime fieldRowValueDateTime))
-                                    {
-                                        fieldType2[i] = "System.DateTime";
-                                    }
-                                    else
-                                    {
-                                        fieldType2[i] = "System.String";
-                                    }
+
+                                    //Output types to check for specific column
+                                    //if (colIndex == 35)
+                                    //{
+                                    //    Console.WriteLine($"Value '{fieldRowValue}' is {fieldType}");
+                                    //}
                                 }
 
-                                //Resolve different types
-                                if (fieldType2[0] == fieldType2[1]) { fieldType = fieldType2[0]; }
+                                //Pick best type of field
+                                if (fieldTypes.Contains("System.String"))
+                                {
+                                    //If any of the rows contain a string then need to set row to that to be able to store all values
+                                    fieldTypeToUse = "System.String";
+                                }
+                                else if (fieldTypes.Contains("System.Double") && fieldTypes.Contains("System.DateTime"))
+                                {
+                                    //If rows are mixed types then store as string
+                                    fieldTypeToUse = "System.String";
+                                }
+                                else if (fieldTypes.Contains("System.Int32") && fieldTypes.Contains("System.DateTime"))
+                                {
+                                    //If rows are mixed types then store as string
+                                    fieldTypeToUse = "System.String";
+                                }
+                                else if (fieldTypes.Contains("System.Boolean") && fieldTypes.Contains("System.DateTime"))
+                                {
+                                    //If rows are mixed types then store as string
+                                    fieldTypeToUse = "System.String";
+                                }
+                                else if (fieldTypes.Contains("System.Double")) 
+                                {
+                                    fieldTypeToUse = "System.Double";
+                                }
+                                else if (fieldTypes.Contains("System.Int32"))
+                                {
+                                    fieldTypeToUse = "System.Int32";
+                                }
+                                else if (fieldTypes.Contains("System.Boolean"))
+                                {
+                                    fieldTypeToUse = "System.Boolean";
+                                }
+                                else if (fieldTypes.Contains("System.DateTime"))
+                                {
+                                    fieldTypeToUse = "System.DateTime";
+                                }
                                 else
                                 {
-                                    if (fieldType2[0] == null) fieldType = fieldType2[1];
-                                    if (fieldType2[1] == null) fieldType = fieldType2[0];
-                                    if (fieldType == "") fieldType = "System.String";
+                                    fieldTypeToUse = "System.String";
                                 }
 
                                 //Get the name of the column
                                 string? colName = "Column_{0}";
-                                try { colName = fieldHeaderValue?.ToString()?.Trim('"'); }
-                                catch { colName = string.Format(colName ?? "", colIndex); }
+                                if (csvFile.GetValue<bool?>("ContainsHeaders", false) == true)
+                                {
+                                    try { colName = fieldHeaderValue?.ToString()?.Trim('"'); }
+                                    catch { colName = string.Format(colName ?? "", colIndex); }
+                                }
+                                else
+                                {
+                                    colName = string.Format(colName ?? "", colIndex);
+
+                                    //add values for fields in row then add row
+                                    tableRow = table!.NewRow();
+
+                                    foreach (object? fieldValue in fileRow)
+                                    {
+                                        object? fieldVal = fieldValue?.ToString()?.Trim('"');
+                                        //If the cell has a blank value then make it null in the SQL Table
+                                        if (fieldVal?.ToString()?.Length == 0)
+                                        {
+                                            fieldVal = DBNull.Value;
+                                        }
+
+                                        //Add the cell to the row
+                                        if (tableRow != null)
+                                        {
+                                            if (colIndex <= table?.Columns.Count - 1) tableRow[colIndex] = fieldVal;
+                                        }
+
+                                        colIndex++;
+                                    }
+
+                                    //Add the row to the table
+                                    if (tableRow != null && table != null)
+                                    {
+                                        if (rowIndex > 0) table.Rows.Add(tableRow);
+                                    }
+                                }
+                                
 
                                 //Console.WriteLine($"\n{fieldHeaderValue}");
 
                                 //Add field to the table
-                                DataColumn tableColumn = new DataColumn(colName, Type.GetType(fieldType) ?? typeof(string));
+                                DataColumn tableColumn = new DataColumn(colName, Type.GetType(fieldTypeToUse) ?? typeof(string));
                                 table?.Columns.Add(tableColumn);
                                 colIndex++;
                             }
