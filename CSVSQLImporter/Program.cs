@@ -2,7 +2,11 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
+using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
 using WinSCP;
 
 namespace CSVSQLImporter
@@ -11,9 +15,12 @@ namespace CSVSQLImporter
     {
         static async Task<int> Main(string[] args)
         {
-            Console.WriteLine("\nImport CSV File to SQL Table");
-            Console.WriteLine("=========================================\n");
-            Console.WriteLine("Copyright Robin Wilson");
+            Console.WriteLine($"\nImport CSV File to SQL Table");
+            Console.WriteLine($"=========================================\n");
+
+            string? productVersion = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+            Console.WriteLine($"Version {productVersion}");
+            Console.WriteLine($"Copyright Robin Wilson");
 
             string configFile = "appsettings.json";
             string? customConfigFile = null;
@@ -48,7 +55,8 @@ namespace CSVSQLImporter
             var databaseTable = config.GetSection("DatabaseTable");
             var csvFile = config.GetSection("CSVFile");
             var ftpConnection = config.GetSection("FTPConnection");
-            string csvFilePath = csvFile["Folder"] + "\\" + csvFile["FileName"];
+            string[]? filePaths = { @csvFile["Folder"] ?? "", csvFile["FileName"] ?? "" };
+            string csvFilePath = Path.Combine(filePaths);
             string? csvFileNameNoExtension = csvFile["FileName"]?.Substring(0, csvFile["FileName"]!.LastIndexOf("."));
 
             var sqlConnection = new SqlConnectionStringBuilder
@@ -151,7 +159,7 @@ namespace CSVSQLImporter
             }
             else
             {
-                Console.WriteLine($"Not Uploading File to FTP as Option in Config is False");
+                Console.WriteLine($"Not Downloading File to FTP as Option in Config is False");
             }
 
             //Load CSV File
@@ -170,34 +178,46 @@ namespace CSVSQLImporter
 
                 List<string> fileRows = new List<string>();
 
-                //Read in file line by line as array of strings
-                using (var reader = new StreamReader(@"C:\Reports\Education & Training - Overall by Team.csv"))
+                //Need to read entire file first as cannot just use reader.ReadLine() and Split() as data may contain commas
+                List< List<string> > csvData = new List<List<string>>();
+                using (var reader = new StreamReader(@csvFilePath))
                 {
-                    while (!reader.EndOfStream)
+                    if (!reader.EndOfStream)
                     {
-                        var line = reader.ReadLine();
+                        var allLines = reader.ReadToEnd();
 
-                        if (line != null)
+                        if (allLines != null)
                         {
-                            fileRows.Add(line);
+                            csvData = ParseCsv(allLines, csvFile.GetValue<char>("Delimiter", ','));
                         }
                     }
                 }
 
-                //Process rows and place into data table with named columns, correct data types
-                int rowIndex = 0;
-                foreach (string fileRow in fileRows)
-                {
-                    var values = fileRow?.Split(',');
+                Console.WriteLine($"Read {csvData.Count} from {csvFilePath}");
 
+                //Testing outputs
+                //int rowIndexTest = 0;
+                //foreach (List<string> fileRow in csvData)
+                //{
+                //    rowIndexTest++;
+
+                //    //fieldValues = fileRow?.Split(csvFile["Delimiter"]) ?? Array.Empty<string>();
+
+                //    Console.WriteLine($"Row {rowIndexTest} - {fileRow[2]}");
+                //}
+
+                int rowIndex = 0;
+                //Process rows and place into data table with named columns, correct data types
+                foreach (List<string> fileRow in csvData)
+                {
                     int colIndex = 0;
 
-                    if (values?.Length > 0)
+                    if (fileRow.Count > 0)
                     {
                         if (rowIndex == 0)
                         {
                             //If first row then add named columns and don't add a row
-                            foreach (string fieldHeaderValue in values)
+                            foreach (string fieldHeaderValue in fileRow)
                             {
                                 string? fieldRowValue = null;
                                 string? fieldType = "";
@@ -206,7 +226,7 @@ namespace CSVSQLImporter
                                 //Check values from row 2 and 3 as row 1 is titles so all will be strings
                                 for (int i = 0; i < 2; i++)
                                 {
-                                    fieldRowValue = fileRows[1].Split(',')[colIndex];
+                                    fieldRowValue = csvData[i + 1][colIndex];
 
                                     /*
                                     switch (Type.GetTypeCode(fieldRowValue.GetType()))
@@ -270,7 +290,7 @@ namespace CSVSQLImporter
                             //add values for fields in row then add row
                             tableRow = table!.NewRow();
 
-                            foreach (object? fieldValue in values)
+                            foreach (object? fieldValue in fileRow)
                             {
                                 object? fieldVal = fieldValue?.ToString()?.Trim('"');
                                 //If the cell has a blank value then make it null in the SQL Table
@@ -301,7 +321,8 @@ namespace CSVSQLImporter
 
                 table?.AcceptChanges();
 
-                Console.WriteLine($"\nValue {table?.Rows[0][1]} {table?.Rows[0][1].GetType()}");
+                //Testing outputs
+                //Console.WriteLine($"\nValue {table?.Rows[0][1]} {table?.Rows[0][1].GetType()}");
             }
             else
             {
@@ -309,6 +330,7 @@ namespace CSVSQLImporter
                 return 1;
             }
 
+            Console.WriteLine($"Loaded {table?.Rows.Count} rows of data from file");
 
             //Save to Database
             Console.WriteLine($"Creating Table {table?.TableName} in Database");
@@ -317,15 +339,24 @@ namespace CSVSQLImporter
             {
                 await connection.OpenAsync();
 
-                string? createTableSQL = CreateTableSQL(table!.TableName, table!);
-                //Console.WriteLine($"{createTableSQL}");
+                if (table != null)
+                {
+                    string? createTableSQL = CreateTableSQL(table?.TableName ?? "Imported_CSV_File", table!);
+                    //Console.WriteLine($"{createTableSQL}");
 
-                using (SqlCommand command = new SqlCommand(createTableSQL, connection))
-                    command.ExecuteNonQuery();
+                    using (SqlCommand command = new SqlCommand(createTableSQL, connection))
+                        await command.ExecuteNonQueryAsync();
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+
+                if (connection != null)
+                {
+                    await connection.CloseAsync();
+                }
+
                 return 1;
             }
 
@@ -336,12 +367,18 @@ namespace CSVSQLImporter
                 SqlBulkCopy bulkcopy = new SqlBulkCopy(connection);
                 bulkcopy.DestinationTableName = table?.TableName;
 
-                bulkcopy.WriteToServer(table);
-                connection.Close();
+                await bulkcopy.WriteToServerAsync(table);
+                await connection.CloseAsync();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+
+                if (connection != null)
+                {
+                    await connection.CloseAsync();
+                }
+
                 return 1;
             }
 
@@ -460,6 +497,74 @@ namespace CSVSQLImporter
                 sqlsc += ",";
             }
             return sqlsc.Substring(0, sqlsc.Length - 1) + "\n)";
+        }
+
+        static List<List<string>> ParseCsv(string csv, char delimiter)
+        {
+            var parsedCsv = new List<List<string>>();
+            var row = new List<string>();
+            StringBuilder field = new StringBuilder();
+            bool inQuotedField = false;
+
+            //If CSV does not end with a new line character then add one to ensure final line of data is included
+            if (csv.Substring(csv.Length - 1, 1) != "\n")
+            {
+                csv = csv += "\n";
+            }
+
+            for (int i = 0; i < csv.Length; i++)
+            {
+                char current = csv[i];
+                char next = i == csv.Length - 1 ? ' ' : csv[i + 1];
+
+                // If current character is not a quote or comma or carriage return or newline (or not a quote and currently in an a quoted field), just add the character to the current field text
+                if ((current != '"' && current != delimiter && current != '\r' && current != '\n') || (current != '"' && inQuotedField))
+                {
+                    field.Append(current);
+                }
+                // Ignore whitespace outside a quoted field
+                else if (current == ' ' || current == '\t')
+                {
+                    continue; 
+                }
+                else if (current == '"')
+                {
+                    if (inQuotedField && next == '"')
+                    { // Quote is escaping a quote within a quoted field
+                        i++; // Skip escaping quote
+                        field.Append(current);
+                    }
+                    else if (inQuotedField)
+                    { // Quote signifies the end of a quoted field
+                        row.Add(field.ToString());
+                        if (next == delimiter)
+                        {
+                            // Skip the comma separator since we've already found the end of the field
+                            i++; 
+                        }
+                        field = new StringBuilder(); //Clear value
+                        inQuotedField = false;
+                    }
+                    else
+                    { // Quote signifies the beginning of a quoted field
+                        inQuotedField = true;
+                    }
+                }
+                else if (current == delimiter)
+                { //
+                    row.Add(field.ToString());
+                    field = new StringBuilder(); //Clear value
+                }
+                else if (current == '\n')
+                {
+                    row.Add(field.ToString());
+                    parsedCsv.Add(new List<string>(row));
+                    field = new StringBuilder(); //Clear value
+                    row.Clear();
+                }
+            }
+
+            return parsedCsv;
         }
     }
 }
