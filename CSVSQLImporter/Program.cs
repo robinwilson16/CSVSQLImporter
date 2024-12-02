@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -51,10 +52,20 @@ namespace CSVSQLImporter
                 return 1;
             }
 
+            Console.WriteLine($"\nSetting Locale To {config["Locale"]}");
+
+            //Set locale to ensure dates and currency are correct
+            CultureInfo culture = new CultureInfo(config["Locale"] ?? "en-GB");
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+
             var databaseConnection = config.GetSection("DatabaseConnection");
             var databaseTable = config.GetSection("DatabaseTable");
             var csvFile = config.GetSection("CSVFile");
             var ftpConnection = config.GetSection("FTPConnection");
+            var storedProcedure = config.GetSection("StoredProcedure");
             string[]? filePaths = { @csvFile["Folder"] ?? "", csvFile["FileName"] ?? "" };
             string csvFilePath = Path.Combine(filePaths);
             string? csvFileNameNoExtension = csvFile["FileName"]?.Substring(0, csvFile["FileName"]!.LastIndexOf("."));
@@ -449,7 +460,6 @@ namespace CSVSQLImporter
                 bulkcopy.DestinationTableName = table?.TableName;
 
                 await bulkcopy.WriteToServerAsync(table);
-                await connection.CloseAsync();
             }
             catch (Exception e)
             {
@@ -461,6 +471,50 @@ namespace CSVSQLImporter
                 }
 
                 return 1;
+            }
+
+            //Run Stored Procedure On Completion
+            if (storedProcedure.GetValue<bool?>("RunTask", false) == true)
+            {
+                Console.WriteLine($"Running Stored Procedure: {storedProcedure["Database"]}.{storedProcedure["Schema"]}.{storedProcedure["StoredProcedure"]}");
+
+                if (storedProcedure["StoredProcedure"]?.Length > 0)
+                {
+                    try
+                    {
+                        if (table != null)
+                        {
+                            string customTaskSQL = $"EXEC {storedProcedure["Database"]}.{storedProcedure["Schema"]}.{storedProcedure["StoredProcedure"]}";
+                            //Console.WriteLine($"{createTableSQL}");
+
+                            using (SqlCommand command = new SqlCommand(customTaskSQL, connection))
+                                await command.ExecuteNonQueryAsync();
+
+                            Console.WriteLine($"Stored Procedure Completed");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+
+                        if (connection != null)
+                        {
+                            await connection.CloseAsync();
+                        }
+
+                        return 1;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Cannot run stored procedure as it has not been specified in the config file");
+                }
+            }
+
+            //Close database connection
+            if (connection != null)
+            {
+                await connection.CloseAsync();
             }
 
             return 0;
