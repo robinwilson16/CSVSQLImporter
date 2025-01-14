@@ -13,8 +13,8 @@
     <RepositoryUrl>https://github.com/robinwilson16/CSVSQLImporter</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>CSV, SQL, SSIS</PackageTags>
-    <AssemblyVersion>1.0.4</AssemblyVersion>
-    <FileVersion>1.0.4</FileVersion>
+    <AssemblyVersion>1.0.5</AssemblyVersion>
+    <FileVersion>1.0.5</FileVersion>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <ApplicationIcon>CSVToSQL.ico</ApplicationIcon>
     <PackageIcon>CSVToSQL.png</PackageIcon>

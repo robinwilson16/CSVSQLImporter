@@ -23,7 +23,7 @@ namespace CSVSQLImporter
             Console.WriteLine($"Version {productVersion}");
             Console.WriteLine($"Copyright Robin Wilson");
 
-            string configFile = "appsettings.json";
+            string configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
             string? customConfigFile = null;
             if (args.Length >= 1)
             {
@@ -32,7 +32,7 @@ namespace CSVSQLImporter
 
             if (!string.IsNullOrEmpty(customConfigFile))
             {
-                configFile = customConfigFile;
+                configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, customConfigFile);
             }
 
             Console.WriteLine($"\nUsing Config File {configFile}");
@@ -110,9 +110,11 @@ namespace CSVSQLImporter
                     case "FTPS":
                         sessionOptions.Protocol = Protocol.Ftp;
                         sessionOptions.FtpSecure = FtpSecure.Explicit;
+                        sessionOptions.GiveUpSecurityAndAcceptAnyTlsHostCertificate = true;
                         break;
                     case "SFTP":
                         sessionOptions.Protocol = Protocol.Sftp;
+                        sessionOptions.GiveUpSecurityAndAcceptAnyTlsHostCertificate = true;
                         break;
                     default:
                         sessionOptions.Protocol = Protocol.Ftp;
@@ -139,7 +141,7 @@ namespace CSVSQLImporter
                     using (Session session = new Session())
                     {
                         //When publishing to a self-contained exe file need to specify the location of WinSCP.exe
-                        session.ExecutablePath = AppDomain.CurrentDomain.BaseDirectory + "\\WinSCP.exe";
+                        session.ExecutablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WinSCP.exe");
 
                         // Connect
                         session.Open(sessionOptions);
