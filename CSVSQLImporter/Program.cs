@@ -63,12 +63,14 @@ namespace CSVSQLImporter
 
             var databaseConnection = config.GetSection("DatabaseConnection");
             var databaseTable = config.GetSection("DatabaseTable");
+            string? schemaName = databaseTable["Schema"] ?? "dbo";
             var csvFile = config.GetSection("CSVFile");
             var ftpConnection = config.GetSection("FTPConnection");
             var storedProcedure = config.GetSection("StoredProcedure");
             string[]? filePaths = { @csvFile["Folder"] ?? "", csvFile["FileName"] ?? "" };
             string csvFilePath = Path.Combine(filePaths);
             string? csvFileNameNoExtension = csvFile["FileName"]?.Substring(0, csvFile["FileName"]!.LastIndexOf("."));
+            
 
             var sqlConnection = new SqlConnectionStringBuilder
             {
@@ -181,7 +183,7 @@ namespace CSVSQLImporter
             DataTable table;
             if (System.IO.File.Exists(csvFilePath))
             {
-                table = new DataTable(databaseTable["TablePrefix"] + csvFileNameNoExtension);
+                table = new DataTable(databaseTable["TablePrefix"] + databaseTable["TableNameOverride"] ?? csvFileNameNoExtension);
 
                 table.Rows.Clear();
                 table.Columns.Clear();
@@ -435,7 +437,7 @@ namespace CSVSQLImporter
 
                 if (table != null)
                 {
-                    string? createTableSQL = CreateTableSQL(table?.TableName ?? "Imported_CSV_File", table!);
+                    string? createTableSQL = CreateTableSQL(schemaName ?? "dbo", table?.TableName ?? "Imported_CSV_File", table!);
                     //Console.WriteLine($"{createTableSQL}");
 
                     using (SqlCommand command = new SqlCommand(createTableSQL, connection))
@@ -522,11 +524,11 @@ namespace CSVSQLImporter
             return 0;
         }
 
-        public static string CreateTableSQL(string tableName, DataTable table)
+        public static string CreateTableSQL(string schemaName, string tableName, DataTable table)
         {
             string sqlsc;
-            sqlsc = "\n DROP TABLE IF EXISTS [" + tableName + "];";
-            sqlsc += "\n CREATE TABLE [" + tableName + "] (";
+            sqlsc = $"\n DROP TABLE IF EXISTS [{schemaName ?? "dbo"}].[{tableName}];";
+            sqlsc += $"\n CREATE TABLE [{schemaName ?? "dbo"}].[{tableName}] (";
 
             //Check Cell Value
             //Console.WriteLine(table.Rows[1][4].ToString());
