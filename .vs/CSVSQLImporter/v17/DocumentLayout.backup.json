@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\appsettings2.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\appsettings2.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\appsettings3.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -29,6 +29,10 @@
           "SelectedChildIndex": 3,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "appsettings3.json",
@@ -38,51 +42,46 @@
               "RelativeToolTip": "CSVSQLImporter\\appsettings3.json",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAACEAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-11-30T02:21:00.735Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-30T02:21:00.735Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "appsettings2.json",
               "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\appsettings2.json",
               "RelativeDocumentMoniker": "CSVSQLImporter\\appsettings2.json",
               "ToolTip": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\appsettings2.json",
               "RelativeToolTip": "CSVSQLImporter\\appsettings2.json",
-              "ViewState": "AgIAABMAAAAAAAAAAAAmwCEAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAYwCkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-11-30T02:19:49.603Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\appsettings.json",
               "RelativeDocumentMoniker": "CSVSQLImporter\\appsettings.json",
               "ToolTip": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\appsettings.json",
               "RelativeToolTip": "CSVSQLImporter\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAYwBMAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-11-30T01:50:22.132Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\Program.cs",
               "RelativeDocumentMoniker": "CSVSQLImporter\\Program.cs",
               "ToolTip": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\Program.cs",
               "RelativeToolTip": "CSVSQLImporter\\Program.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAqwIUAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAMoAAAAAAAAAAAAAAOIAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T19:29:55.068Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }

@@ -226,7 +226,7 @@ namespace CSVSQLImporter
                     }
                 }
 
-                Console.WriteLine($"Read {csvData.Count} from {csvFilePath}");
+                Console.WriteLine($"Loaded {csvData.Count} rows of data from {csvFilePath}");
 
                 //Testing outputs
                 //int rowIndexTest = 0;
@@ -590,10 +590,12 @@ namespace CSVSQLImporter
                     int maxRowLength = 0;
                     string maxRowLengthString = "";
                     if (table.Columns[i].MaxLength == -1)
-                    {
-                        for (int rowIndex = 1; rowIndex < table.Rows.Count; rowIndex++)
+                    {                        
+                        for (int rowIndex = 0; rowIndex < table.Rows.Count; rowIndex++)
                         {
                             rowLength = (table.Rows[rowIndex][i].ToString() ?? "").Length;
+                            //Console.WriteLine($"Column: {i}, Row: {rowIndex}, Length: {rowLength}");
+
                             if (rowLength > maxRowLength)
                             {
                                 maxRowLength = rowLength;

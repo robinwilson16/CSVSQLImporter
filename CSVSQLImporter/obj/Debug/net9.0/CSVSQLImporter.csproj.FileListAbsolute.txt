@@ -225,7 +225,6 @@ C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\System.Diagnostics.EventLog.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\System.Memory.Data.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\System.Runtime.Caching.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\WinSCPnet.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
@@ -303,15 +302,9 @@ C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\ru\Microsoft.Data.SqlClient.resources.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\zh-Hant\Microsoft.Data.SqlClient.resources.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\unix\lib\net8.0\Microsoft.Data.SqlClient.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win\lib\net8.0\Microsoft.Data.SqlClient.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Runtime.Caching.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Debug\net9.0\CSVSQLImporter.csproj.AssemblyReference.cache
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Debug\net9.0\CSVSQLImporter.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Debug\net9.0\CSVSQLImporter.AssemblyInfoInputs.cache
@@ -324,3 +317,13 @@ C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Debug\net9.
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Debug\net9.0\CSVSQLImporter.pdb
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Debug\net9.0\CSVSQLImporter.genruntimeconfig.cache
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Debug\net9.0\ref\CSVSQLImporter.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\Microsoft.Bcl.Cryptography.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\cs\Microsoft.Data.SqlClient.resources.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\pl\Microsoft.Data.SqlClient.resources.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\tr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\unix\lib\net9.0\Microsoft.Data.SqlClient.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win\lib\net9.0\Microsoft.Data.SqlClient.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Diagnostics.EventLog.dll
+C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Security.Cryptography.Pkcs.dll
