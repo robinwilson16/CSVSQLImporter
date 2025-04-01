@@ -104,7 +104,7 @@ namespace CSVSQLImporter
                     Password = ftpConnection["Password"]
                 };
 
-                switch (ftpConnection["Type"])
+                switch (ftpConnection?["Type"])
                 {
                     case "FTP":
                         sessionOptions.Protocol = Protocol.Ftp;
@@ -118,12 +118,22 @@ namespace CSVSQLImporter
                         sessionOptions.Protocol = Protocol.Sftp;
                         sessionOptions.GiveUpSecurityAndAcceptAnyTlsHostCertificate = true;
                         break;
+                    case "SCP":
+                        sessionOptions.Protocol = Protocol.Scp;
+                        sessionOptions.GiveUpSecurityAndAcceptAnyTlsHostCertificate = true;
+                        break;
                     default:
                         sessionOptions.Protocol = Protocol.Ftp;
                         break;
                 }
 
-                switch (ftpConnection["Mode"])
+                if (ftpConnection?["SSHHostKeyFingerprint"]?.Length > 0)
+                {
+                    sessionOptions.SshHostKeyFingerprint = ftpConnection["SSHHostKeyFingerprint"];
+                    sessionOptions.GiveUpSecurityAndAcceptAnyTlsHostCertificate = false;
+                }
+
+                switch (ftpConnection?["Mode"])
                 {
                     case "Active":
                         sessionOptions.FtpMode = FtpMode.Active;
@@ -181,9 +191,17 @@ namespace CSVSQLImporter
             Console.WriteLine($"Loading CSV File from {csvFilePath}");
 
             DataTable table;
+
+            string? tableNameOverride = null;
+
+            if (databaseTable?["TableNameOverride"]?.Length > 0)
+            {
+                tableNameOverride = databaseTable?["TableNameOverride"];
+            }
+
             if (System.IO.File.Exists(csvFilePath))
             {
-                table = new DataTable(databaseTable["TablePrefix"] + databaseTable["TableNameOverride"] ?? csvFileNameNoExtension);
+                table = new DataTable(databaseTable?["TablePrefix"] + (tableNameOverride ?? csvFileNameNoExtension));
 
                 table.Rows.Clear();
                 table.Columns.Clear();
