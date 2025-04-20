@@ -146,6 +146,7 @@ namespace CSVSQLImporter
                         break;
                 }
 
+                Console.WriteLine("\nDownloading CSV File");
                 Console.WriteLine($"Downloding File {csvFile["FileName"]} From {sessionOptions.HostName}");
 
                 try
@@ -158,13 +159,20 @@ namespace CSVSQLImporter
                         // Connect
                         session.Open(sessionOptions);
 
-                        // Upload files
+                        // Download files
+                        string downloadpath = Path.Combine("/", ftpConnection?["FolderPath"] ?? "");
+
+                        if (downloadpath.Substring(downloadpath.Length - 1) != "/")
+                        {
+                            downloadpath = downloadpath + "/";
+                        }
+
                         TransferOptions transferOptions = new TransferOptions();
                         transferOptions.TransferMode = TransferMode.Binary;
 
                         TransferOperationResult transferResult;
                         transferResult =
-                            session.GetFiles("/" + csvFile["FileName"], @csvFilePath, false, transferOptions);
+                            session.GetFiles(downloadpath + csvFile["FileName"], @csvFilePath, false, transferOptions);
 
                         // Throw on any error
                         transferResult.Check();
@@ -172,7 +180,7 @@ namespace CSVSQLImporter
                         // Print results
                         foreach (TransferEventArgs transfer in transferResult.Transfers)
                         {
-                            Console.WriteLine("Download of {0} succeeded", transfer.FileName);
+                            Console.WriteLine("Download of {0} succeeded from {1}", transfer.FileName, downloadpath);
                         }
                     }
                 }
@@ -188,6 +196,7 @@ namespace CSVSQLImporter
             }
 
             //Load CSV File
+            Console.WriteLine("\nLoading Data from CSV");
             Console.WriteLine($"Loading CSV File from {csvFilePath}");
 
             DataTable table;
@@ -447,6 +456,7 @@ namespace CSVSQLImporter
             Console.WriteLine($"Loaded {table?.Rows.Count} rows of data from file");
 
             //Save to Database
+            Console.WriteLine("\nSaving Data To Database");
             Console.WriteLine($"Creating Table {table?.TableName} in Database");
             await using var connection = new SqlConnection(connectionString);
             try
@@ -498,6 +508,7 @@ namespace CSVSQLImporter
             //Run Stored Procedure On Completion
             if (storedProcedure.GetValue<bool?>("RunTask", false) == true)
             {
+                Console.WriteLine("\nRunning Post Import Stored Procedure");
                 Console.WriteLine($"Running Stored Procedure: {storedProcedure["Database"]}.{storedProcedure["Schema"]}.{storedProcedure["StoredProcedure"]}");
 
                 if (storedProcedure["StoredProcedure"]?.Length > 0)
