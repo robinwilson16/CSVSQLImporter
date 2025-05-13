@@ -162,7 +162,6 @@ C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net9.0\win-x64\CSVSQLImporter.deps.json
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net9.0\win-x64\CSVSQLImporter.runtimeconfig.json
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net9.0\win-x64\CSVSQLImporter.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net9.0\win-x64\CSVSQLImporter.pdb
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net9.0\win-x64\Azure.Core.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net9.0\win-x64\Azure.Identity.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net9.0\win-x64\Humanizer.dll
@@ -306,7 +305,6 @@ C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Release\net
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Release\net9.0\win-x64\CSVSQLIm.10B0B69C.Up2Date
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Release\net9.0\win-x64\CSVSQLImporter.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Release\net9.0\win-x64\refint\CSVSQLImporter.dll
-C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Release\net9.0\win-x64\CSVSQLImporter.pdb
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Release\net9.0\win-x64\CSVSQLImporter.genruntimeconfig.cache
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\obj\Release\net9.0\win-x64\ref\CSVSQLImporter.dll
 C:\Users\robin.wilson\source\repos\CSVSQLImporter\CSVSQLImporter\bin\Release\net9.0\win-x64\Microsoft.Bcl.Cryptography.dll
