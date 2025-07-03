@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\csvsqlimporter.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\csvsqlimporter.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\csvsqlimporter.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\csvsqlimporter.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\appsettings3.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\appsettings3.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\appsettings2.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\appsettings2.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|c:\\users\\robin.wilson\\source\\repos\\csvsqlimporter\\csvsqlimporter\\appsettings3.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{5C52D129-1E6D-4FE5-B62C-CF91002A6401}|CSVSQLImporter\\CSVSQLImporter.csproj|solutionrelative:csvsqlimporter\\appsettings3.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,28 +30,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CSVSQLImporter",
-              "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\CSVSQLImporter.csproj",
-              "RelativeDocumentMoniker": "CSVSQLImporter\\CSVSQLImporter.csproj",
-              "ToolTip": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\CSVSQLImporter.csproj",
-              "RelativeToolTip": "CSVSQLImporter\\CSVSQLImporter.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-13T09:27:22.341Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "LoggingService.cs",
               "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\Services\\LoggingService.cs",
               "RelativeDocumentMoniker": "CSVSQLImporter\\Services\\LoggingService.cs",
@@ -72,7 +51,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\appsettings.json",
               "RelativeDocumentMoniker": "CSVSQLImporter\\appsettings.json",
@@ -86,18 +65,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CSVSQLImporter",
-              "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\CSVSQLImporter.csproj",
-              "RelativeDocumentMoniker": "CSVSQLImporter\\CSVSQLImporter.csproj",
-              "ToolTip": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\CSVSQLImporter.csproj",
-              "RelativeToolTip": "CSVSQLImporter\\CSVSQLImporter.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-20T18:01:41.667Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\Program.cs",
               "RelativeDocumentMoniker": "CSVSQLImporter\\Program.cs",
@@ -110,7 +77,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "appsettings3.json",
               "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\appsettings3.json",
               "RelativeDocumentMoniker": "CSVSQLImporter\\appsettings3.json",
@@ -123,7 +90,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "appsettings2.json",
               "DocumentMoniker": "C:\\Users\\robin.wilson\\source\\repos\\CSVSQLImporter\\CSVSQLImporter\\appsettings2.json",
               "RelativeDocumentMoniker": "CSVSQLImporter\\appsettings2.json",
