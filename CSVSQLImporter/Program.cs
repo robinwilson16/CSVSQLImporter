@@ -232,14 +232,11 @@ namespace CSVSQLImporter
                 List< List<string> > csvData = new List<List<string>>();
                 using (var reader = new StreamReader(@csvFilePath))
                 {
-                    if (!reader.EndOfStream)
-                    {
-                        var allLines = reader.ReadToEnd();
+                    var allLines = await reader.ReadToEndAsync();
 
-                        if (allLines != null)
-                        {
-                            csvData = ParseCsv(allLines, csvFile.GetValue<char>("Delimiter", ','));
-                        }
+                    if (allLines != null)
+                    {
+                        csvData = ParseCsv(allLines, csvFile.GetValue<char>("Delimiter", ','));
                     }
                 }
 
@@ -303,7 +300,8 @@ namespace CSVSQLImporter
                                         {
                                             fieldType = "System.Int32";
                                         }
-                                        else if (decimal.TryParse(fieldRowValue, out decimal fieldRowValueDecimal))
+                                        // Additional code needed so values such as "4+" are not treated as doubles/decimals
+                                        else if (decimal.TryParse(fieldRowValue, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out decimal fieldRowValueDecimal))
                                         {
                                             fieldType = "System.Double";
                                         }
@@ -322,7 +320,7 @@ namespace CSVSQLImporter
                                     //Output types to check for specific column
                                     //if (colIndex == 35)
                                     //{
-                                    //    await LoggingService.Log($"Value '{fieldRowValue}' is {fieldType}");
+                                    //    await LoggingService.Log($"Value '{fieldRowValue}' is {fieldType}", logFileName, logToFile, outputToScreen);
                                     //}
                                 }
 
@@ -343,6 +341,16 @@ namespace CSVSQLImporter
                                     fieldTypeToUse = "System.String";
                                 }
                                 else if (fieldTypes.Contains("System.Boolean") && fieldTypes.Contains("System.DateTime"))
+                                {
+                                    //If rows are mixed types then store as string
+                                    fieldTypeToUse = "System.String";
+                                }
+                                else if (fieldTypes.Contains("System.Double") && fieldTypes.Contains("System.String"))
+                                {
+                                    //If rows are mixed types then store as string
+                                    fieldTypeToUse = "System.String";
+                                }
+                                else if (fieldTypes.Contains("System.Int32") && fieldTypes.Contains("System.String"))
                                 {
                                     //If rows are mixed types then store as string
                                     fieldTypeToUse = "System.String";
