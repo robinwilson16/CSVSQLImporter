@@ -300,6 +300,11 @@ namespace CSVSQLImporter
                                         {
                                             fieldType = "System.Int32";
                                         }
+                                        // Ensure mobile numbers and identifiers are stored as string to retain leading zeros
+                                        else if (fieldRowValue.StartsWith("0") && fieldRowValue.Length > 1)
+                                        {
+                                            fieldType = "System.String";
+                                        }
                                         // Additional code needed so values such as "4+" are not treated as doubles/decimals
                                         else if (decimal.TryParse(fieldRowValue, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out decimal fieldRowValueDecimal))
                                         {
