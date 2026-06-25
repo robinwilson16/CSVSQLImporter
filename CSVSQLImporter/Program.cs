@@ -273,7 +273,7 @@ namespace CSVSQLImporter
                                 //Check all cell types for this column excluding header row to pick best type
                                 for (int i = 0; i < csvData.Count - 1; i++)
                                 {
-                                    fieldRowValue = csvData[i + 1][colIndex];
+                                    fieldRowValue = csvData[i + 1][colIndex].Trim();
                                     string fieldType = "System.String";
                                     /*
                                     switch (Type.GetTypeCode(fieldRowValue.GetType()))
@@ -301,7 +301,8 @@ namespace CSVSQLImporter
                                             fieldType = "System.Int32";
                                         }
                                         // Ensure mobile numbers and identifiers are stored as string to retain leading zeros
-                                        else if (fieldRowValue.StartsWith("0") && fieldRowValue.Length > 1)
+                                        // Must check BEFORE decimal because pure digit strings parse as decimals
+                                        else if (fieldRowValue.StartsWith("0") && !fieldRowValue.StartsWith("0.") && fieldRowValue.Length > 1)
                                         {
                                             fieldType = "System.String";
                                         }
@@ -385,7 +386,7 @@ namespace CSVSQLImporter
                                 string? colName = "Column_{0}";
                                 if (csvFile.GetValue<bool?>("ContainsHeaders", false) == true)
                                 {
-                                    try { colName = fieldHeaderValue?.ToString()?.Trim('"'); }
+                                    try { colName = fieldHeaderValue?.ToString()?.Trim('"').Trim(); }
                                     catch { colName = string.Format(colName ?? "", colIndex); }
                                 }
                                 else
